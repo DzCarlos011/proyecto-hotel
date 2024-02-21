@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import styles from "./rooms-content.module.css";
-import { getImageUrl } from "../../../utils";
-import DatePicker from "react-datepicker";
-import { differenceInDays } from 'date-fns'; // Importa la función differenceInDays
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
+import Axios from 'axios';
+import {
+  differenceInDays,
+} from 'date-fns'; // Importa la función differenceInDays
+import DatePicker from 'react-datepicker';
 
+import { getImageUrl } from '../../../utils';
+import styles from './rooms-content.module.css';
 
 export function Rooms_content() {
   // CONSTANTES PARA EL MODAL
@@ -81,40 +86,41 @@ export function Rooms_content() {
   // FUNCIONES PARA EL MODAL
 
 
-  const openModal = (room) => {
-    setIsModalOpen(true);
-    setSelectedRoom(room);
+ const openModal = (room) => {
+  setIsModalOpen(true);
+  setSelectedRoom(room);
+  calculateTotalPayment();
+};
+
+const closeModal = () => {
+  setIsModalOpen(false);
+  setSelectedRoom(null);
+};
+
+const handleArrivalDateChange = (date) => {
+  setArrivalDate(date);
+  calculateNumberOfNights(date, departureDate);
+};
+
+const handleDepartureDateChange = (date) => {
+  setDepartureDate(date);
+  calculateNumberOfNights(arrivalDate, date);
+};
+
+const calculateNumberOfNights = (arrival, departure) => {
+  if (arrival && departure) {
+    const nights = differenceInDays(departure, arrival);
+    setNumberOfNights(nights);
     calculateTotalPayment();
-  };
+  }
+};
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedRoom(null);
-  };
+useEffect(() => {
+  if (total_pago > 0) {
+    postPago();
+  }
+}, [total_pago]);
 
-  const handleArrivalDateChange = (date) => {
-    setArrivalDate(date);
-    calculateNumberOfNights(date, departureDate);
-  };
-
-  const handleDepartureDateChange = (date) => {
-    setDepartureDate(date);
-    calculateNumberOfNights(arrivalDate, date);
-  };
-
-  const calculateNumberOfNights = (arrival, departure) => {
-    if (arrival && departure) {
-      const nights = differenceInDays(departure, arrival);
-      setNumberOfNights(nights);
-      calculateTotalPayment();
-    }
-  };
-
-  useEffect(() => {
-    if (total_pago > 0) {
-      postPago();
-    }
-  }, [total_pago]);
 
   const calculateTotalPayment = () => {
     if (selectedRoom && numberOfNights) {
@@ -162,20 +168,20 @@ export function Rooms_content() {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <span className={styles.closeBtn} onClick={closeModal}>&times;</span>
-            <p>Room: {selectedRoom.tipo_de_habitacion}</p>
-            <p>User Name: {usuario && usuario[0] ? usuario[0].nombre : 'Nombre no disponible'}</p>
-            <p>Price: ${selectedRoom.precio} per night</p>
+            <p className={styles.titulo1}>Room: {selectedRoom.tipo_de_habitacion}</p>
+            <p className={styles.usuario1}> User Name: {usuario && usuario[0] ? usuario[0].nombre : 'Nombre no disponible'}</p>
+            <p className={styles.preciofinal}>Price: ${selectedRoom.precio} per night</p>
             <div className={styles.date}>
-              <p>Arrival Date:</p>
-              <DatePicker selected={arrivalDate} onChange={handleArrivalDateChange} />
+              <p className={styles.fecha}>Arrival Date:</p>
+              <DatePicker className={styles.renglon}selected={arrivalDate} onChange={handleArrivalDateChange} />
             </div>
             <div>
-              <p>Departure Date:</p>
-              <DatePicker selected={departureDate} onChange={handleDepartureDateChange} />
+              <p className={styles.fecha}>Departure Date:</p>
+              <DatePicker className={styles.renglon} selected={departureDate} onChange={handleDepartureDateChange} />
             </div>
-            <p>Number of Nights: {numberOfNights}</p>
-            <p>Total payment: ${selectedRoom.precio * numberOfNights}</p>
-            <button type="button" className="btn" onClick={calculateTotalPayment}>Basic</button>
+            <p className={styles.fecha}>Number of Nights: {numberOfNights}</p>
+            <p className={styles.preciofinal}>Total payment: ${selectedRoom.precio * numberOfNights}</p>
+            <button type="button" className={styles.btn} onClick={calculateTotalPayment}>Book Now</button>
             
           </div>
         </div>

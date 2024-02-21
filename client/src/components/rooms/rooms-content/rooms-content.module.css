@@ -74,6 +74,8 @@
   justify-content: space-between;
 }
 
+/* ESTILOS DEL MODAL  EDITAR*/
+
 .modal {
   display: none; /* Inicialmente oculto */
   position: fixed; /* Coloca el modal en una posición fija en la ventana */
@@ -81,23 +83,47 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo amarillo claro semitransparente */
   z-index: 1000; /* Asegura que el modal esté en la parte superior */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+
+
 /* Estilos para el contenido del modal */
 .modalContent {
-  background-color: #fff; /* Fondo blanco */
-  padding: 20px;
-  width: 70%;
-  height: 80%;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+  padding: 5vw; /* Padding relativo al ancho de la ventana */
+  width: 80%; /* Ancho relativo */
+  max-width: 600px; /* Ancho máximo */
+  height: auto; /* Altura automática */
+  max-height: 80%; /* Altura máxima */
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra para el contenido */
   position: relative; /* Coloca el contenido en una posición relativa */
+  text-align: center;
+  margin: 10vh auto; /* Centrar vertical y horizontalmente */
 }
+
+/* Media query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+  .modalContent {
+    width: 90%;
+    padding: 4vw;
+  }
+}
+
+/* Media query para pantallas aún más pequeñas */
+@media screen and (max-width: 480px) {
+  .modalContent {
+    width: 95%;
+    padding: 3vw;
+  }
+}
+
+
 
 /* Estilos para el botón de cierre (la 'X') */
 .closeBtn {
@@ -105,6 +131,10 @@
   top: 10px;
   right: 10px;
   cursor: pointer;
+  background-color: red;
+  width: 30px; 
+  height: 30px;
+  text-decoration-color: black; 
 }
 
 .textPrecio {
@@ -118,6 +148,67 @@
   line-height: normal;
   color: var(--color-secundary);
 }
+
+.titulo1 {
+  font-size: 24px;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: black;
+}
+
+.usuario1 {
+  font-size: 20px;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: #14274A;
+}
+
+.preciofinal {
+  color: #2ecc71;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.fecha {
+  font-size: 18px;
+  font-family: Montserrat;
+  font-weight: bold;
+}
+
+.btn {
+  color: #FFFFFF;
+  background-color: #E0B973;
+  /*font-weight: bold;*/
+  font-size: 20px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.renglon {
+  font-size: 20px;
+  border: 2px solid #E0B973;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+  background-color: white;
+}
+
+.renglon:hover {
+  border-color: goldenrod;
+}
+
+/* Si el DatePicker tiene algún botón o elemento interactivo que pueda estilizarse */
+.renglon button {
+  background-color: gold;
+  color: black;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+
+
 
 @media (max-width: 414px) {
   .container {
